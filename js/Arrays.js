@@ -12,3 +12,4 @@ while (indice < lista.length ){
     indice += 1
 
 }
+
