@@ -1,31 +1,31 @@
 let opciones = ["+",20,15]
 let resultado 
-function imprimirOperacion(opciones,resultado) {
-    console.log(`Ha elegido usted una ${opciones[0]}`)
-    console.log(`${opciones[1]}${opciones[0]}${opciones[2]}=${resultado}`)
+function imprimirOperacion(resultado,simbolo,operando1,operando2) {
+    console.log(`Ha elegido usted una ${simbolo}`)
+    console.log(`${operando1}${simbolo}${operando2}=${resultado}`)
 }
 if (opciones[0] == "+"){
     resultado = opciones[1] + opciones[2]
     
-    imprimirOperacion(opciones,resultado)
+    imprimirOperacion(resultado,opciones[0],opciones[1],opciones[2])
 }
 
 else if (opciones[0] == "-"){
     resultado = opciones[1] - opciones[2]
    
-    imprimirOperacion(opciones,resultado)
+    imprimirOperacion(resultado,opciones[0],opciones[1],opciones[2])
 }
 
 else if (opciones[0] == "*"){
     resultado = opciones[1] * opciones[2]
   
-    imprimirOperacion(opciones,resultado)
+    imprimirOperacion(resultado,opciones[0],opciones[1],opciones[2])
 }
 
 else if (opciones[0] == "/"){
     resultado = opciones[1] / opciones[2]
  
-    imprimirOperacion(opciones,resultado)
+    imprimirOperacion(resultado,opciones[0],opciones[1],opciones[2])
 }
 
 else {
