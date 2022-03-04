@@ -16,14 +16,42 @@ async function principal (){
     let jugador = await question("Jugador:")
     console.log(`Jugador:${jugador}`)
 
-    console.log("|_|_|_|")
-    console.log("|_|_|_|")
-    console.log("|_|_|_|")
+    console.log("|_|_|")
+    console.log("|_|_|")
+    
 
     console.log("¿Dónde quieres poner tu ficha?")
-    let fila = await question(`Fila:`)
-    let columna = await question("Columna:")
+    let filastr = await question(`Fila:`)
+    let columnastr = await question("Columna:")
+    let fila = +filastr
+    let columna = +columnastr
     console.log(`Has elegido la posicion: ${fila},${columna}`)
+
+    if (fila===0 && columna===0){
+      console.log("|x|_|")
+      console.log("|_|_|")
+    }
+    else if (fila===0 && columna===1){
+      console.log("|_|x|")
+      console.log("|_|_|")
+    }
+    else if (fila===1 && columna===0){
+      console.log("|_|_|")
+      console.log("|x|_|")
+    }
+    else if (fila===1 && columna===1){
+      console.log("|_|_|")
+      console.log("|_|x|")
+    }
+
+    else {
+      console.log("Error, tienes que meter un numero")
+    }
+    
+
+
+    
+    
 
 }
 principal()
