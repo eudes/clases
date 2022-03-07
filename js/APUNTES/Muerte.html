@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+<title>¿Cuantos años te quedan para morir?</title>
+<meta charset="utf-8">
+
+    </head>
+    <body>
+<h1>Calcular años para fallecer</h1>
+<h2>En esta pagina puedes calcular los años exactos para morir añadiendo unos simples datos</h2>
+<input id="Edad">
+<input id="Sexo">
+<input id="Resultado">
+<script>
+    function calcularEdadRestante() {
+        let edadMediaHombre=79.59
+        let edadMediaMujer=82.33
+        let edad=document.getElementById("Edad").value
+        let resultado=edadMediaHombre-edad
+        let resultadoMujer=edadMediaMujer-edad
+        let sexo=document.getElementById("Sexo").value
+        if (sexo=="mujer"){
+            document.getElementById("Resultado").value=resultadoMujer
+        }
+
+        else if (sexo=="hombre"){
+            document.getElementById("Resultado").value=resultado
+        }
+        
+        console.log(resultado)
+      
+       
+    }
+   
+   document.getElementById("Edad").onchange=calcularEdadRestante
+   document.getElementById("Sexo").onchange=calcularEdadRestante
+</script>
+    </body>
+</html>
