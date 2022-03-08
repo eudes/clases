@@ -1,76 +1,62 @@
-
-const readline = require('readline').createInterface({
+const readline = require("readline").createInterface({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
-const util = require('util');
+const util = require("util");
 const question = util.promisify(readline.question).bind(readline);
 
 // 1º paso : mostras la cuadricula vacia
 // 2º paso : pedir al jugador 1, que nos ponga en que posicion quiere poner su ficha
 // 3º paso : mostrar la cuadricula con la ficha donde nos ha dicho el jugador 1
-async function turno(jugador, ficha,fichaTurnoAnterior) {
-  let cantidadFichas = 0
+async function turno(jugador, ficha, tablero) {
+  let cantidadFichas = 0;
   if (cantidadFichas >= 4) {
-    console.log("No hay mas espacios")
-    return
+    console.log("No hay mas espacios");
+    return;
   }
-  console.log(`Turno de ${jugador}`)
-  console.log("¿Dónde quieres poner tu ficha?")
-  filastr = await question(`Fila:`)
-  columnastr = await question("Columna:")
-  fila = +filastr
-  columna = +columnastr
-  console.log(`Has elegido la posicion: ${fila},${columna}`)
+
+  console.log(`Turno de ${jugador}`);
+  console.log("¿Dónde quieres poner tu ficha?");
+  filastr = await question(`Fila:`);
+  columnastr = await question("Columna:");
+  fila = +filastr;
+  columna = +columnastr;
+  console.log(`Has elegido la posicion: ${fila},${columna}`);
+
+  // Repasar el OR (||)
+  if(typeof fila !== 'number' || typeof columna !== 'number') {
+    console.log("Error, tienes que meter un numero");
+  }
+
+  tablero[fila][columna] = ficha
   
-  console.log(`|X|O|`)
-  console.log("|_|_|")
+  console.log(`|${tablero[0][0]}|${tablero[0][1]}|`);
+  console.log(`|${tablero[1][0]}|${tablero[1][1]}|`);
 
-  console.log(`|X|_|`)
-  console.log("|O|_|")
+  cantidadFichas += 1;
 
-  if (fila === 0 && columna === 0) {
-    console.log(`|${ficha}|_|`)
-    console.log("|_|_|")
-  }
-  else if (fila === 0 && columna === 1) {
-    console.log(`|_|${ficha}|`)
-    console.log("|_|_|")
-  }
-  else if (fila === 1 && columna === 0) {
-    console.log("|_|_|")
-    console.log(`|${ficha}|_|`)
-  }
-  else if (fila === 1 && columna === 1) {
-    console.log("|_|_|")
-    console.log(`|_|${ficha}|`)
-  }
-  else {
-    console.log("Error, tienes que meter un numero")
-  }
-  cantidadFichas += 1
   // todo: comprobar si ha ganado
-  return [fila,columna]
+
+  return tablero;
 }
 
-
-async function principal() {
+async function partida() {
   let jugador1 = await question("Jugador 1:")
   let jugador2 = await question("Jugador 2:")
-  
-  
-
 
   console.log("|_|_|")
   console.log("|_|_|")
 
-  let fichaTurno1 = await turno(jugador1, "X")
+  let tablero = [
+    ["_", "_"],
+    ["_", "_"],
+  ]
 
-  let fichaTurno2 = await turno(jugador2, "O")
-
-
-
-
+  tablero = await turno(jugador1, "X", tablero)
+  tablero = await turno(jugador2, "O", tablero)
+  tablero = await turno(jugador1, "X", tablero)
+  tablero = await turno(jugador2, "O", tablero)
 }
-principal()
+
+partida();
