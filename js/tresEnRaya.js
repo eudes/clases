@@ -1,8 +1,8 @@
 
 const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-  });
+  input: process.stdin,
+  output: process.stdout
+});
 
 const util = require('util');
 const question = util.promisify(readline.question).bind(readline);
@@ -10,11 +10,11 @@ const question = util.promisify(readline.question).bind(readline);
 // 1º paso : mostras la cuadricula vacia
 // 2º paso : pedir al jugador 1, que nos ponga en que posicion quiere poner su ficha
 // 3º paso : mostrar la cuadricula con la ficha donde nos ha dicho el jugador 1
-async function turno (jugador, ficha){
-   let cantidadFichas = 0
-   if(cantidadFichas >= 4){
+async function turno(jugador, ficha,fichaTurnoAnterior) {
+  let cantidadFichas = 0
+  if (cantidadFichas >= 4) {
     console.log("No hay mas espacios")
-    return 
+    return
   }
   console.log(`Turno de ${jugador}`)
   console.log("¿Dónde quieres poner tu ficha?")
@@ -23,21 +23,26 @@ async function turno (jugador, ficha){
   fila = +filastr
   columna = +columnastr
   console.log(`Has elegido la posicion: ${fila},${columna}`)
-
   
-  if (fila===0 && columna===0){
+  console.log(`|X|O|`)
+  console.log("|_|_|")
+
+  console.log(`|X|_|`)
+  console.log("|O|_|")
+
+  if (fila === 0 && columna === 0) {
     console.log(`|${ficha}|_|`)
     console.log("|_|_|")
   }
-  else if (fila===0 && columna===1){
+  else if (fila === 0 && columna === 1) {
     console.log(`|_|${ficha}|`)
     console.log("|_|_|")
   }
-  else if (fila===1 && columna===0){
+  else if (fila === 1 && columna === 0) {
     console.log("|_|_|")
     console.log(`|${ficha}|_|`)
   }
-  else if (fila===1 && columna===1){
+  else if (fila === 1 && columna === 1) {
     console.log("|_|_|")
     console.log(`|_|${ficha}|`)
   }
@@ -46,21 +51,23 @@ async function turno (jugador, ficha){
   }
   cantidadFichas += 1
   // todo: comprobar si ha ganado
+  return [fila,columna]
 }
 
 
-async function principal (){
-    let jugador1 = await question("Jugador1:")
-    let jugador2 = await question("Jugador2:")
+async function principal() {
+  let jugador1 = await question("Jugador 1:")
+  let jugador2 = await question("Jugador 2:")
+  
+  
 
 
-    console.log("|_|_|")
-    console.log("|_|_|")
-    
-await turno(jugador1, "X")
-    
+  console.log("|_|_|")
+  console.log("|_|_|")
 
-await turno(jugador2, "O")
+  let fichaTurno1 = await turno(jugador1, "X")
+
+  let fichaTurno2 = await turno(jugador2, "O")
 
 
 
