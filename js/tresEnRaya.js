@@ -9,11 +9,27 @@ const question = util.promisify(readline.question).bind(readline);
 // 1º paso : mostras la cuadricula vacia
 // 2º paso : pedir al jugador 1, que nos ponga en que posicion quiere poner su ficha
 // 3º paso : mostrar la cuadricula con la ficha donde nos ha dicho el jugador 1
+
+function contarFichas(tablero){
+  let cantidadDeFichas = 0
+  for (let indice = 0; indice < tablero.length; indice++){
+    let elementoExterior = tablero[indice]
+    for(let indiceInt = 0; indiceInt < elementoExterior.length; indiceInt++){
+      console.log(elementoExterior[indiceInt])
+      let elementoInterior = elementoExterior[indiceInt]
+      if(elementoInterior === "X" || elementoInterior === "O"){
+        cantidadDeFichas += 1
+
+      }
+    }
+  }
+  console.log(cantidadDeFichas)
+  return cantidadDeFichas
+  }
 async function turno(jugador, ficha, tablero) {
-  let cantidadFichas = 0;
-  if (cantidadFichas >= 4) {
+  if (contarFichas(tablero) >= 4) {
     console.log("No hay mas espacios");
-    return;
+    return
   }
 
   console.log(`Turno de ${jugador}`);
@@ -34,29 +50,32 @@ async function turno(jugador, ficha, tablero) {
   console.log(`|${tablero[0][0]}|${tablero[0][1]}|`);
   console.log(`|${tablero[1][0]}|${tablero[1][1]}|`);
 
-  cantidadFichas += 1;
 
-  // todo: comprobar si ha ganado
 
   return tablero;
 }
 
 async function partida() {
-  let jugador1 = await question("Jugador 1:")
-  let jugador2 = await question("Jugador 2:")
-
+ 
   console.log("|_|_|")
   console.log("|_|_|")
 
   let tablero = [
-    ["_", "_"],
+    ["X", "_"],
     ["_", "_"],
   ]
+
+
+
+  let jugador1 = await question("Jugador 1:")
+  let jugador2 = await question("Jugador 2:")
 
   tablero = await turno(jugador1, "X", tablero)
   tablero = await turno(jugador2, "O", tablero)
   tablero = await turno(jugador1, "X", tablero)
   tablero = await turno(jugador2, "O", tablero)
+  tablero = await turno(jugador2, "X", tablero)
+
 }
 
 partida();
