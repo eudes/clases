@@ -15,7 +15,6 @@ function contarFichas(tablero){
   for (let indice = 0; indice < tablero.length; indice++){
     let elementoExterior = tablero[indice]
     for(let indiceInt = 0; indiceInt < elementoExterior.length; indiceInt++){
-      console.log(elementoExterior[indiceInt])
       let elementoInterior = elementoExterior[indiceInt]
       if(elementoInterior === "X" || elementoInterior === "O"){
         cantidadDeFichas += 1
@@ -23,11 +22,23 @@ function contarFichas(tablero){
       }
     }
   }
-  console.log(cantidadDeFichas)
   return cantidadDeFichas
   }
+function contarPosiciones (tablero){
+
+  let cuentaPosiciones = 0
+  for (let indice = 0; indice < tablero.length; indice++){
+    let arrayInterno = tablero[indice]
+    cuentaPosiciones=cuentaPosiciones + arrayInterno.length
+    
+  }
+  return cuentaPosiciones
+} 
+
 async function turno(jugador, ficha, tablero) {
-  if (contarFichas(tablero) >= 4) {
+  let cuentaPosiciones = contarPosiciones(tablero)
+  if (contarFichas(tablero) >= cuentaPosiciones) {
+    
     console.log("No hay mas espacios");
     return
   }
@@ -64,8 +75,6 @@ async function partida() {
     ["X", "_"],
     ["_", "_"],
   ]
-
-
 
   let jugador1 = await question("Jugador 1:")
   let jugador2 = await question("Jugador 2:")
