@@ -24,8 +24,7 @@ function contarFichas(tablero){
   }
   return cantidadDeFichas
   }
-function contarPosiciones (tablero){
-
+function contarPosiciones(tablero){
   let cuentaPosiciones = 0
   for (let indice = 0; indice < tablero.length; indice++){
     let arrayInterno = tablero[indice]
@@ -34,7 +33,7 @@ function contarPosiciones (tablero){
   }
   return cuentaPosiciones
 } 
-
+// todo conprobar que la posición no esta ocupada
 async function turno(jugador, ficha, tablero) {
   let cuentaPosiciones = contarPosiciones(tablero)
   if (contarFichas(tablero) >= cuentaPosiciones) {
@@ -57,24 +56,34 @@ async function turno(jugador, ficha, tablero) {
   }
 
   tablero[fila][columna] = ficha
+
+  dibujarTablero(tablero)
   
-  console.log(`|${tablero[0][0]}|${tablero[0][1]}|`);
-  console.log(`|${tablero[1][0]}|${tablero[1][1]}|`);
-
-
-
   return tablero;
+}
+// como ejecutar un trozo de codigo por fila del tablero
+function dibujarTablero (tablero){
+  console.log(`|${tablero[0][0]}|${tablero[0][1]}|${tablero[0][2]}|`);
+  console.log(`|${tablero[1][0]}|${tablero[1][1]}|${tablero[1][2]}|`);
+  console.log(`|${tablero[2][0]}|${tablero[2][1]}|${tablero[2][2]}|`);
 }
 
 async function partida() {
- 
-  console.log("|_|_|")
-  console.log("|_|_|")
-
   let tablero = [
-    ["X", "_"],
-    ["_", "_"],
+    ["_", "_","_"],
+    ["_", "_","_"],
+    ["_", "_","_"],
   ]
+  
+  for(let indice = 0; indice < tablero.length; indice ++){
+  console.log(tablero[indice])
+  let elementoInterior = tablero[indice] 
+  }
+  for(let indiceTablero = 0; indiceTablero < tablero[indice]; indiceTablero ++ ){
+    
+  }
+  dibujarTablero(tablero)
+ 
 
   let jugador1 = await question("Jugador 1:")
   let jugador2 = await question("Jugador 2:")
@@ -83,7 +92,11 @@ async function partida() {
   tablero = await turno(jugador2, "O", tablero)
   tablero = await turno(jugador1, "X", tablero)
   tablero = await turno(jugador2, "O", tablero)
-  tablero = await turno(jugador2, "X", tablero)
+  tablero = await turno(jugador1, "X", tablero)
+  tablero = await turno(jugador2, "O", tablero)
+  tablero = await turno(jugador1, "X", tablero)
+  tablero = await turno(jugador2, "O", tablero)
+  tablero = await turno(jugador1, "X", tablero)
 
 }
 
